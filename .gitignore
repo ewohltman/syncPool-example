@@ -1,0 +1,9 @@
+# Project-specific files
+.idea/
+
+# Test results
+coverage.out
+
+# Binaries
+syncPool-example
+*.exe
