@@ -20,3 +20,8 @@ func (object *Object) String() string {
 		object.Contents.Value,
 	)
 }
+
+func (object *Object) Reset() {
+	object.Name = ""
+	object.Contents.Value = 0
+}
