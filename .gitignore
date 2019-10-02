@@ -3,7 +3,3 @@
 
 # Test results
 coverage.out
-
-# Binaries
-syncPool-example
-*.exe
