@@ -1,3 +1,5 @@
+// Package pool provides an example usage of unmarshalling JSON into a struct
+// using sync.Pool.
 package pool
 
 import (
@@ -19,7 +21,9 @@ var objectPool = sync.Pool{
 	},
 }
 
-func UnmarshalObject(jsonBytes []byte) (*base.Object, error) {
+// UnmarshalObject unmarshals jsonBytes into a *base.Object and returns the
+// dereferenced base.Object. The *base.Object is obtained using sync.Pool.
+func UnmarshalObject(jsonBytes []byte) (base.Object, error) {
 	object := objectPool.Get().(*base.Object)
 
 	defer func() {
@@ -29,8 +33,8 @@ func UnmarshalObject(jsonBytes []byte) (*base.Object, error) {
 
 	err := json.Unmarshal(jsonBytes, object)
 	if err != nil {
-		return nil, err
+		return base.Object{}, err
 	}
 
-	return object, nil
+	return *object, nil
 }

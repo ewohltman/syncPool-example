@@ -14,10 +14,6 @@ func TestUnmarshalObject(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if object == nil {
-		t.Fatal("Unexpected nil *base.Object")
-	}
-
 	if object.Contents == nil {
 		t.Fatal("Unexpected nil *base.Object.Contents")
 	}
