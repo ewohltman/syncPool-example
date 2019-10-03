@@ -3,22 +3,17 @@ Example usage of sync.Pool.
 
 ## Benchmark Results
 
-### Original implementation without sync.Pool
-```
-goos: linux
-goarch: amd64
-pkg: github.com/ewohltman/syncPool-example/pkg/original
-BenchmarkUnmarshalObject-8   	  130453	      9251 ns/op	     288 B/op	       7 allocs/op
-PASS
-ok  	github.com/ewohltman/syncPool-example/pkg/original	3.310s
-```
+Run `make bench` to see the results yourself.
 
-### Pooled implementation with sync.Pool
+You'll need `benchcmp` to see the comparison: `go get -u golang.org/x/tools/cmd/benchcmp`
+
 ```
-goos: linux
-goarch: amd64
-pkg: github.com/ewohltman/syncPool-example/pkg/pool
-BenchmarkUnmarshalObject-8   	  121831	      9902 ns/op	     258 B/op	       5 allocs/op
-PASS
-ok  	github.com/ewohltman/syncPool-example/pkg/pool	3.279s
+benchmark                      old ns/op     new ns/op     delta
+BenchmarkUnmarshalObject-8     1130          1087          -3.81%
+
+benchmark                      old allocs     new allocs     delta
+BenchmarkUnmarshalObject-8     8              5              -37.50%
+
+benchmark                      old bytes     new bytes     delta
+BenchmarkUnmarshalObject-8     352           248           -29.55%
 ```

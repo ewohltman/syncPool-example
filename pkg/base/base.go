@@ -14,22 +14,35 @@ type Object struct {
 	Contents *Contents `json:"contents"`
 }
 
+// String satisfies the fmt.Stringer interface for Object.
+func (object *Object) String() string {
+	return fmt.Sprintf(
+		"{Name:%s %s}",
+		object.Name,
+		object.Contents,
+	)
+}
+
+// Reset resets object to default values.
+func (object *Object) Reset() {
+	object.Name = ""
+	object.Contents = nil
+}
+
 // Contents is an example struct embedded within the Object struct.
 type Contents struct {
 	Value int `json:"value"`
 }
 
-// String satisfies the fmt.Stringer interface.
-func (object *Object) String() string {
+// String satisfies the fmt.Stringer interface for Contents.
+func (contents *Contents) String() string {
 	return fmt.Sprintf(
-		"{Name:%s Contents:{Value:%d}}",
-		object.Name,
-		object.Contents.Value,
+		"Contents:{Value:%d}",
+		contents.Value,
 	)
 }
 
-// Reset resets the values of object to default values.
-func (object *Object) Reset() {
-	object.Name = ""
-	object.Contents.Value = 0
+// Reset resets contents to the default value.
+func (contents *Contents) Reset() {
+	contents.Value = 0
 }

@@ -43,14 +43,46 @@ func TestObject_Reset(t *testing.T) {
 		)
 	}
 
-	actualValue := object.Contents.Value
-	expectedValue := 0
-
-	if actualValue != expectedValue {
+	if object.Contents != nil {
 		t.Errorf(
-			"Unexpected *Object.Contents.Value. Got: %d, Expected: %d",
-			actualValue,
-			expectedValue,
+			"Unexpected non-nil *Object.Contents. Got: %+v, Expected: nil",
+			*object.Contents,
+		)
+	}
+}
+
+func TestContents_String(t *testing.T) {
+	contents := &Contents{
+		Value: 0,
+	}
+
+	actual := contents.String()
+	expected := "Contents:{Value:0}"
+
+	if actual != expected {
+		t.Errorf(
+			"Unexpected Contents string. Got: %s, Expected: %s",
+			actual,
+			expected,
+		)
+	}
+}
+
+func TestContents_Reset(t *testing.T) {
+	contents := &Contents{
+		Value: 100,
+	}
+
+	contents.Reset()
+
+	actual := contents.Value
+	expected := 0
+
+	if actual != expected {
+		t.Errorf(
+			"Unexpected *Contents.Value. Got: %d, Expected: %d",
+			actual,
+			expected,
 		)
 	}
 }

@@ -7,9 +7,7 @@ import (
 )
 
 func TestUnmarshalObject(t *testing.T) {
-	jsonBytes := []byte(base.ObjectJSON)
-
-	object, err := UnmarshalObject(jsonBytes)
+	object, err := UnmarshalObject(base.ObjectJSON)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -42,9 +40,7 @@ func TestUnmarshalObject(t *testing.T) {
 }
 
 func BenchmarkUnmarshalObject(b *testing.B) {
-	jsonBytes := []byte(base.ObjectJSON)
-
 	for n := 0; n < b.N; n++ {
-		_, _ = UnmarshalObject(jsonBytes)
+		_, _ = UnmarshalObject(base.ObjectJSON)
 	}
 }
