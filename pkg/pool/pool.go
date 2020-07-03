@@ -10,14 +10,14 @@ import (
 	"github.com/ewohltman/syncPool-example/pkg/base"
 )
 
-//nolint:gochecknoglobals
+// nolint:gochecknoglobals // package global variable to simplify example
 var bufferPool = sync.Pool{
 	New: func() interface{} {
 		return new(bytes.Buffer)
 	},
 }
 
-//nolint:gochecknoglobals
+// nolint:gochecknoglobals // package global variable to simplify example
 var objectPool = sync.Pool{
 	New: func() interface{} {
 		return &base.Object{
@@ -27,7 +27,7 @@ var objectPool = sync.Pool{
 	},
 }
 
-//nolint:gochecknoglobals
+// nolint:gochecknoglobals // package global variable to simplify example
 var contentPool = sync.Pool{
 	New: func() interface{} {
 		return &base.Contents{
