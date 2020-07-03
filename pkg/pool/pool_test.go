@@ -1,13 +1,14 @@
-package pool
+package pool_test
 
 import (
 	"testing"
 
 	"github.com/ewohltman/syncPool-example/pkg/base"
+	"github.com/ewohltman/syncPool-example/pkg/pool"
 )
 
 func TestUnmarshalObject(t *testing.T) {
-	object, err := UnmarshalObject(base.ObjectJSON)
+	object, err := pool.UnmarshalObject(base.ObjectJSON)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,6 +42,6 @@ func TestUnmarshalObject(t *testing.T) {
 
 func BenchmarkUnmarshalObject(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_, _ = UnmarshalObject(base.ObjectJSON)
+		_, _ = pool.UnmarshalObject(base.ObjectJSON)
 	}
 }

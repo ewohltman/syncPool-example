@@ -1,5 +1,5 @@
 # `syncPool-example`
-Example usage of sync.Pool.
+Example usage of `sync.Pool`.
 
 ## Benchmark Results
 
@@ -9,7 +9,7 @@ You'll need `benchcmp` to see the comparison: `go get -u golang.org/x/tools/cmd/
 
 ```
 benchmark                      old ns/op     new ns/op     delta
-BenchmarkUnmarshalObject-8     1130          1087          -3.81%
+BenchmarkUnmarshalObject-8     1286          1211          -5.83%
 
 benchmark                      old allocs     new allocs     delta
 BenchmarkUnmarshalObject-8     8              5              -37.50%

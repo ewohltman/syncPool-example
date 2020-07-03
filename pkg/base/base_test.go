@@ -1,11 +1,15 @@
-package base
+package base_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/ewohltman/syncPool-example/pkg/base"
+)
 
 func TestObject_String(t *testing.T) {
-	object := &Object{
+	object := &base.Object{
 		Name: "",
-		Contents: &Contents{
+		Contents: &base.Contents{
 			Value: 0,
 		},
 	}
@@ -23,9 +27,9 @@ func TestObject_String(t *testing.T) {
 }
 
 func TestObject_Reset(t *testing.T) {
-	object := &Object{
+	object := &base.Object{
 		Name: "testObject",
-		Contents: &Contents{
+		Contents: &base.Contents{
 			Value: 100,
 		},
 	}
@@ -52,7 +56,7 @@ func TestObject_Reset(t *testing.T) {
 }
 
 func TestContents_String(t *testing.T) {
-	contents := &Contents{
+	contents := &base.Contents{
 		Value: 0,
 	}
 
@@ -69,7 +73,7 @@ func TestContents_String(t *testing.T) {
 }
 
 func TestContents_Reset(t *testing.T) {
-	contents := &Contents{
+	contents := &base.Contents{
 		Value: 100,
 	}
 
