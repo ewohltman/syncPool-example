@@ -1,16 +1,18 @@
 .PHONY: lint test benchOriginal benchPool bench
 
 lint:
-	golangci-lint run --enable-all --deadline=5m ./...
+	golangci-lint run ./...
 
 test:
 	go test -v -race -coverprofile=coverage.out ./...
 
 benchOriginal:
-	go test -run=NONE -bench=. -benchmem ./pkg/original > original.txt
+	@echo -n "" > original.txt
+	@$(foreach var,$(shell seq 1 10),go test -run=NONE -bench=. -benchmem ./pkg/original | grep 'Benchmark' >> original.txt;)
 
 benchPool:
-	go test -run=NONE -bench=. -benchmem ./pkg/pool > pool.txt
+	@echo -n "" > pool.txt
+	@$(foreach var,$(shell seq 1 10),go test -run=NONE -bench=. -benchmem ./pkg/pool | grep 'Benchmark' >> pool.txt;)
 
 bench: benchOriginal benchPool
-	benchcmp original.txt pool.txt
+	benchstat original.txt pool.txt

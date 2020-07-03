@@ -5,15 +5,15 @@ Example usage of `sync.Pool`.
 
 Run `make bench` to see the results yourself.
 
-You'll need `benchcmp` to see the comparison: `go get -u golang.org/x/tools/cmd/benchcmp`
+You'll need `benchstat` to see the comparison: `go get -u golang.org/x/perf/cmd/benchstat`
 
 ```
-benchmark                      old ns/op     new ns/op     delta
-BenchmarkUnmarshalObject-8     1286          1211          -5.83%
+name               old time/op    new time/op    delta
+UnmarshalObject-8    1.33µs ± 8%    1.25µs ± 2%   -6.27%  (p=0.001 n=10+8)
 
-benchmark                      old allocs     new allocs     delta
-BenchmarkUnmarshalObject-8     8              5              -37.50%
+name               old alloc/op   new alloc/op   delta
+UnmarshalObject-8      352B ± 0%      248B ± 0%  -29.55%  (p=0.000 n=10+10)
 
-benchmark                      old bytes     new bytes     delta
-BenchmarkUnmarshalObject-8     352           248           -29.55%
+name               old allocs/op  new allocs/op  delta
+UnmarshalObject-8      8.00 ± 0%      5.00 ± 0%  -37.50%  (p=0.000 n=10+10)
 ```
