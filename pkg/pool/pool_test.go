@@ -8,7 +8,9 @@ import (
 )
 
 func TestUnmarshalObject(t *testing.T) {
-	object, err := pool.UnmarshalObject(base.ObjectJSON)
+	pools := pool.NewPools()
+
+	object, err := pools.UnmarshalObject(base.ObjectJSON)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +43,9 @@ func TestUnmarshalObject(t *testing.T) {
 }
 
 func BenchmarkUnmarshalObject(b *testing.B) {
+	pools := pool.NewPools()
+
 	for n := 0; n < b.N; n++ {
-		_, _ = pool.UnmarshalObject(base.ObjectJSON)
+		_, _ = pools.UnmarshalObject(base.ObjectJSON)
 	}
 }

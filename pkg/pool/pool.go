@@ -10,48 +10,50 @@ import (
 	"github.com/ewohltman/syncPool-example/pkg/base"
 )
 
-// nolint:gochecknoglobals // package global variable to simplify example
-var objectPool = sync.Pool{
-	New: func() interface{} {
-		return &base.Object{
-			Name:     "",
-			Contents: nil,
-		}
-	},
+// Pools is a collection of *sync.Pool objects.
+type Pools struct {
+	Objects  *sync.Pool
+	Contents *sync.Pool
+	Buffers  *sync.Pool
 }
 
-// nolint:gochecknoglobals // package global variable to simplify example
-var contentPool = sync.Pool{
-	New: func() interface{} {
-		return &base.Contents{
-			Value: 0,
-		}
-	},
-}
-
-// nolint:gochecknoglobals // package global variable to simplify example
-var bufferPool = sync.Pool{
-	New: func() interface{} {
-		return new(bytes.Buffer)
-	},
+// NewPools returns a new *Pools with the *sync.Pool objects initialized.
+func NewPools() *Pools {
+	return &Pools{
+		Objects: &sync.Pool{
+			New: func() interface{} {
+				return &base.Object{}
+			},
+		},
+		Contents: &sync.Pool{
+			New: func() interface{} {
+				return &base.Contents{}
+			},
+		},
+		Buffers: &sync.Pool{
+			New: func() interface{} {
+				return new(bytes.Buffer)
+			},
+		},
+	}
 }
 
 // UnmarshalObject writes jsonString into a *bytes.Buffer using sync.Pool and
 // unmarshals the buffer into a *base.Object. It then returns the dereferenced
 // base.Object. The *base.Object is also obtained using sync.Pool.
-func UnmarshalObject(jsonString string) (base.Object, error) {
-	object := objectPool.Get().(*base.Object)
-	defer objectPool.Put(object)
+func (pools *Pools) UnmarshalObject(jsonString string) (base.Object, error) {
+	object := pools.Objects.Get().(*base.Object)
+	defer pools.Objects.Put(object)
 	defer object.Reset()
 
-	contents := contentPool.Get().(*base.Contents)
-	defer contentPool.Put(contents)
+	contents := pools.Contents.Get().(*base.Contents)
+	defer pools.Contents.Put(contents)
 	defer contents.Reset()
 
 	object.Contents = contents
 
-	buffer := bufferPool.Get().(*bytes.Buffer)
-	defer bufferPool.Put(buffer)
+	buffer := pools.Buffers.Get().(*bytes.Buffer)
+	defer pools.Buffers.Put(buffer)
 	defer buffer.Reset()
 
 	buffer.WriteString(jsonString)
